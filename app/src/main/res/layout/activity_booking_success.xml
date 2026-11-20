@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:background="@color/background">
+        <ImageView android:layout_width="80dp" android:layout_height="80dp" android:layout_gravity="center" android:src="@drawable/ic_success" android:contentDescription="@string/booked_status" android:layout_marginTop="55dp" android:layout_marginBottom="24dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:text="@string/booking_success" android:gravity="center" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/success_caption" android:gravity="center" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:id="@+id/code" android:textColor="@color/lime" android:textSize="26sp" android:gravity="center" android:layout_marginTop="35dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:id="@+id/movie_title" android:textSize="23sp" android:layout_marginTop="30dp" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/time" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/seats" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/total" android:textColor="@color/lime" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/tickets" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/view_tickets" android:layout_marginTop="8dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/home" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/demo_note" android:textSize="12sp" android:layout_marginTop="25dp" />
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="24dp" android:background="@color/background">
+    <com.google.android.material.button.MaterialButton android:id="@+id/back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/back" android:layout_marginTop="8dp" style="@style/CineButton.Outline" android:layout_marginBottom="20dp" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:text="@string/my_tickets" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/tickets_caption" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/count" android:textColor="@color/lime" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/bookings" android:layout_width="match_parent" android:layout_height="0dp" android:nestedScrollingEnabled="false" android:clipToPadding="false" android:layout_weight="1" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:orientation="vertical" android:id="@+id/empty" android:gravity="center" android:padding="24dp" android:visibility="gone" android:layout_weight="1">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:text="@string/empty_title" android:textSize="24sp" android:gravity="center" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/empty_message" android:gravity="center" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/discover" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/discover" android:layout_marginTop="8dp" />
+    </LinearLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/demo_note" android:textSize="11sp" android:layout_marginTop="20dp" />
+</LinearLayout>

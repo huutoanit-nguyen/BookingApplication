@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="24dp" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:text="@string/app_name" android:textColor="@color/lime" android:layout_weight="1" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/tickets" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/my_tickets" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/logout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/logout" android:layout_marginTop="8dp" style="@style/CineButton.Outline" android:layout_marginStart="8dp" />
+    </LinearLayout>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/home_caption" android:textSize="11sp" android:textColor="@color/lime" android:layout_marginTop="24dp" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="24dp" android:text="@string/home_heading" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/movies" android:layout_width="match_parent" android:layout_height="0dp" android:nestedScrollingEnabled="false" android:clipToPadding="false" android:layout_weight="1" />
+</LinearLayout>
