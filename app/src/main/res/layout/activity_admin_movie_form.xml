@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true" android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="24dp" android:background="@color/background">
+        <com.google.android.material.button.MaterialButton android:id="@+id/back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/back" style="@style/CineButton.Outline" android:layout_marginBottom="20dp" />
+        <TextView android:id="@+id/form_heading" android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="20dp" />
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/title_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/movie_title" android:layout_marginBottom="12dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/genre_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/movie_genre" android:layout_marginBottom="12dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/genre" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/duration_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/movie_duration" android:layout_marginBottom="12dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/duration" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="number" android:singleLine="true" android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/director_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/movie_director" android:layout_marginBottom="12dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/director" android:layout_width="match_parent" android:layout_height="wrap_content" android:singleLine="true" android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout android:id="@+id/description_layout" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/movie_description" android:layout_marginBottom="16dp">
+            <com.google.android.material.textfield.TextInputEditText android:id="@+id/description" android:layout_width="match_parent" android:layout_height="128dp" android:gravity="top" android:inputType="textMultiLine|textCapSentences" android:textColor="@color/text_primary" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/movie_poster" android:textColor="@color/text_primary" android:layout_marginBottom="6dp" />
+        <Spinner android:id="@+id/poster" android:layout_width="match_parent" android:layout_height="52dp" android:backgroundTint="@color/outline" android:layout_marginBottom="20dp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/save_movie" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/save_movie" />
+    </LinearLayout>
+</ScrollView>

@@ -11,7 +11,7 @@ import java.util.Locale;
 
 final class DatabaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "cine.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private final Context context;
 
     DatabaseHelper(Context context) {
@@ -25,7 +25,8 @@ final class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, "
-                + "email TEXT NOT NULL COLLATE NOCASE UNIQUE, phone TEXT NOT NULL, password TEXT NOT NULL)");
+                + "email TEXT NOT NULL COLLATE NOCASE UNIQUE, phone TEXT NOT NULL, password TEXT NOT NULL, "
+                + "role TEXT NOT NULL DEFAULT 'USER')");
         db.execSQL("CREATE TABLE movies (id INTEGER PRIMARY KEY, title TEXT NOT NULL, genre TEXT NOT NULL, "
                 + "duration INTEGER NOT NULL, director TEXT NOT NULL, description TEXT NOT NULL, poster INTEGER NOT NULL)");
         db.execSQL("CREATE TABLE showtimes (id INTEGER PRIMARY KEY, movie_id INTEGER NOT NULL, room TEXT NOT NULL, "
@@ -48,12 +49,19 @@ final class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        throw new IllegalStateException("Unsupported database upgrade: " + oldVersion + " -> " + newVersion);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'USER'");
+            seedAdmin(db);
+        }
+        if (newVersion > DATABASE_VERSION) {
+            throw new IllegalStateException("Unsupported database upgrade: " + oldVersion + " -> " + newVersion);
+        }
     }
 
     private void seed(SQLiteDatabase db) {
         insert(db, "users", values("name", "Minh Anh", "email", "test@gmail.com",
-                "phone", "0901234567", "password", "123456", "id", 1));
+                "phone", "0901234567", "password", "123456", "role", "USER", "id", 1));
+        seedAdmin(db);
 
         int[] posters = {R.drawable.poster_1, R.drawable.poster_2, R.drawable.poster_3,
                 R.drawable.poster_4, R.drawable.poster_5, R.drawable.poster_6};
@@ -92,6 +100,11 @@ final class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
         }
+    }
+
+    private static void seedAdmin(SQLiteDatabase db) {
+        insert(db, "users", values("name", "Quản trị viên", "email", "admin@example.com",
+                "phone", "0900000000", "password", "123456", "role", "ADMIN"));
     }
 
     private static void insert(SQLiteDatabase db, String table, ContentValues values) {

@@ -14,6 +14,7 @@
         <com.google.android.material.button.MaterialButton android:id="@+id/register" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/register_link" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/demo_account" android:textSize="12sp" android:layout_marginTop="24dp" />
         <com.google.android.material.button.MaterialButton android:id="@+id/demo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/demo_fill" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/demo_admin" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/demo_admin_fill" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/auth_note" android:gravity="center" android:textSize="12sp" android:layout_marginTop="22dp" />
     </LinearLayout>
 </ScrollView>

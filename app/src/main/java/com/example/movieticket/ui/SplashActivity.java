@@ -7,6 +7,11 @@ public class SplashActivity extends BaseActivity {
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.activity_splash);
-        resetTo(session.isLoggedIn() ? MovieListActivity.class : LoginActivity.class);
+        Class<?> destination = LoginActivity.class;
+        if (session.isLoggedIn()) {
+            destination = repository.isAdmin(session.getUserId())
+                    ? AdminDashboardActivity.class : MovieListActivity.class;
+        }
+        resetTo(destination);
     }
 }

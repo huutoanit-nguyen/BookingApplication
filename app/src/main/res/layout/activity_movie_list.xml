@@ -5,6 +5,7 @@
         <com.google.android.material.button.MaterialButton android:id="@+id/tickets" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/my_tickets" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
         <com.google.android.material.button.MaterialButton android:id="@+id/logout" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/logout" android:layout_marginTop="8dp" style="@style/CineButton.Outline" android:layout_marginStart="8dp" />
     </LinearLayout>
+    <com.google.android.material.button.MaterialButton android:id="@+id/admin" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/admin_dashboard" android:visibility="gone" android:layout_marginTop="12dp" style="@style/CineButton.Outline" />
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/home_caption" android:textSize="11sp" android:textColor="@color/lime" android:layout_marginTop="24dp" />
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="24dp" android:text="@string/home_heading" />
     <androidx.recyclerview.widget.RecyclerView android:id="@+id/movies" android:layout_width="match_parent" android:layout_height="0dp" android:nestedScrollingEnabled="false" android:clipToPadding="false" android:layout_weight="1" />

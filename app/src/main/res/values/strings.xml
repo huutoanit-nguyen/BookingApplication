@@ -16,8 +16,9 @@
     <string name="phone">Số điện thoại</string>
     <string name="password">Mật khẩu</string>
     <string name="confirm_password">Nhập lại mật khẩu</string>
-    <string name="demo_account">Tài khoản dùng thử: test@gmail.com / 123456</string>
+    <string name="demo_account">Khách: test@gmail.com / 123456\nAdmin: admin@example.com / 123456</string>
     <string name="demo_fill">Điền tài khoản dùng thử</string>
+    <string name="demo_admin_fill">Điền tài khoản admin demo</string>
     <string name="auth_note">An tâm đặt vé. Trọn vẹn trải nghiệm.</string>
     <string name="home_heading">Hôm nay xem gì?</string>
     <string name="home_caption">CHỌN PHIM HAY, ĐẶT VÉ NGAY</string>
@@ -124,4 +125,34 @@
     <string name="payment_failed_demo">Thanh toán thất bại (mô phỏng). Chưa tạo vé và chưa giữ ghế; bạn có thể thử lại.</string>
     <string name="payment_method_format">Phương thức: %1$s</string>
     <string name="payment_status_success">Trạng thái: Đã thanh toán (demo)</string>
+    <string name="admin_dashboard">Quản trị phim</string>
+    <string name="admin_required">Tài khoản này không có quyền quản trị.</string>
+    <string name="admin_movie_count_format">%1$d phim trong danh mục</string>
+    <string name="add_movie">Thêm phim</string>
+    <string name="edit_movie">Sửa phim</string>
+    <string name="movie_title">Tên phim</string>
+    <string name="movie_genre">Thể loại</string>
+    <string name="movie_duration">Thời lượng (phút)</string>
+    <string name="movie_director">Đạo diễn</string>
+    <string name="movie_description">Mô tả</string>
+    <string name="movie_poster">Poster minh họa</string>
+    <string name="save_movie">Lưu phim</string>
+    <string name="invalid_duration">Thời lượng phải là số phút lớn hơn 0.</string>
+    <string name="movie_created">Đã thêm phim và tạo 3 suất chiếu mẫu.</string>
+    <string name="movie_updated">Đã cập nhật phim.</string>
+    <string name="movie_save_failed">Không thể lưu phim. Vui lòng kiểm tra dữ liệu.</string>
+    <string name="edit">Sửa</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_movie_title">Xóa phim?</string>
+    <string name="delete_movie_message">Bạn có chắc muốn xóa “%1$s”?</string>
+    <string name="movie_deleted">Đã xóa phim và các suất chiếu chưa có giao dịch.</string>
+    <string name="movie_delete_blocked">Không thể xóa phim đã có vé hoặc giao dịch thanh toán.</string>
+    <string-array name="movie_posters">
+        <item>Poster mẫu 1</item>
+        <item>Poster mẫu 2</item>
+        <item>Poster mẫu 3</item>
+        <item>Poster mẫu 4</item>
+        <item>Poster mẫu 5</item>
+        <item>Poster mẫu 6</item>
+    </string-array>
 </resources>

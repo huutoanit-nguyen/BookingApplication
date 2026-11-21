@@ -29,6 +29,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         resetTo(LoginActivity.class);
         return false;
     }
+    protected boolean requireAdmin() {
+        if (!requireLogin()) return false;
+        if (repository.isAdmin(session.getUserId())) return true;
+        Toast.makeText(this, R.string.admin_required, Toast.LENGTH_SHORT).show();
+        resetTo(MovieListActivity.class);
+        return false;
+    }
     @Override protected void onResume() {
         super.onResume();
         if (!(this instanceof LoginActivity) && !(this instanceof RegisterActivity)

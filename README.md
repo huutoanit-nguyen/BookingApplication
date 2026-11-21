@@ -9,7 +9,7 @@ không thư viện ảnh và không thanh toán thật.
 2. Dùng **JDK 17**, cài Android SDK 35 và đồng bộ Gradle.
    Project kèm Gradle Wrapper 8.9; lần đầu cần kết nối Internet để tải dependencies.
 3. Chạy module `app` trên máy ảo hoặc thiết bị Android 7.0 trở lên.
-4. Đăng nhập: **test@gmail.com / 123456**.
+4. Tài khoản khách: **test@gmail.com / 123456**. Tài khoản quản trị: **admin@example.com / 123456**.
 
 ## Kiến trúc
 
@@ -17,8 +17,8 @@ không thư viện ảnh và không thanh toán thật.
 app/src/main/java/com/example/movieticket/
 ├── model/       User, Movie, Showtime, Booking
 ├── data/        Repository, DatabaseHelper, SessionManager
-├── adapter/     MovieAdapter, ShowtimeAdapter, SeatAdapter, BookingAdapter
-└── ui/          BaseActivity, SplashActivity và 8 Activity chức năng
+├── adapter/     MovieAdapter, AdminMovieAdapter, ShowtimeAdapter, SeatAdapter, BookingAdapter
+└── ui/          Activity khách hàng, thanh toán demo và quản trị phim
 app/src/main/res/
 ├── drawable/    6 poster VectorDrawable placeholder, nền, icon
 ├── layout/      activity_*.xml, item_*.xml
@@ -27,7 +27,9 @@ app/src/main/res/
 
 - Các Activity lấy dữ liệu qua `Repository.getInstance(context)`.
 - Repository singleton đọc/ghi SQLite cục bộ (`cine.db`), khởi tạo 6 phim,
-  18 suất chiếu, một tài khoản và 5 ghế đặt sẵn cho từng suất chiếu.
+  18 suất chiếu, tài khoản khách/admin và 5 ghế đặt sẵn cho từng suất chiếu.
+- Admin đăng nhập để vào dashboard, thêm/sửa/xóa phim và chọn poster mẫu.
+  Phim mới tự có 3 suất chiếu mẫu. Không cho xóa phim đã có vé hoặc giao dịch.
 - Đặt vé chuyển sang màn hình thanh toán demo. Chọn thẻ/Ví MoMo/Ví ZaloPay mô
   phỏng; có thể xác nhận thành công hoặc thử luồng thất bại. Chỉ thanh toán
   thành công mới tạo vé và giữ ghế, trong một giao dịch SQLite nguyên tử.
@@ -52,6 +54,7 @@ app/src/main/res/
 8. Vào thanh toán, thử mô phỏng thất bại: không tạo vé và ghế vẫn trống; xác nhận demo thành công: hiện mã vé và phương thức thanh toán.
 9. Mở Vé của tôi, kiểm tra vé; đóng/mở app và kiểm tra dữ liệu vẫn còn.
 10. Quay lại cùng suất chiếu: ghế đã đặt đổi màu xám. Đăng xuất → Back không trở về trang được bảo vệ.
+11. Đăng nhập `admin@example.com / 123456`: thêm/sửa/xóa một phim chưa có giao dịch; thử xóa phim đã có vé và xác nhận app chặn thao tác.
 
 ## Database và thanh toán
 

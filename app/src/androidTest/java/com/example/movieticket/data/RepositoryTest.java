@@ -2,6 +2,7 @@ package com.example.movieticket.data;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import com.example.movieticket.R;
 import com.example.movieticket.model.Booking;
 import com.example.movieticket.model.Movie;
 import com.example.movieticket.model.Showtime;
@@ -18,35 +19,43 @@ public class RepositoryTest {
     @Test public void sqliteCatalogAccountsAndAtomicPaidBooking() {
         Repository repository = Repository.getInstance(
                 InstrumentationRegistry.getInstrumentation().getTargetContext());
-        assertEquals(6, repository.getMovies().size());
+        assertTrue(repository.getMovies().size() >= 6);
         for (Movie movie : repository.getMovies()) {
             assertEquals(3, repository.getShowtimes(movie.getId()).size());
         }
 
         assertNotNull(repository.login(" TEST@gmail.com ", "123456"));
         assertNull(repository.login("test@gmail.com", "wrong"));
+        User admin = repository.login("admin@example.com", "123456");
+        assertNotNull(admin);
+        assertTrue(admin.isAdmin());
+        assertTrue(repository.isAdmin(admin.getId()));
         assertFalse(repository.register(new User(0, "Test", "TEST@gmail.com", "0901234567", "123456")));
         String email = "new" + System.nanoTime() + "@gmail.com";
         assertTrue(repository.register(new User(0, "Test", email, "0901234567", "123456")));
         assertNotNull(repository.login(email, "123456"));
 
-        Showtime showtime = repository.getShowtimes(6).get(2);
-        assertTrue(repository.getBookedSeats(showtime.getId()).contains("A1"));
+        int movieId = repository.createMovie(new Movie(0, "Test movie " + System.nanoTime(),
+                "Drama", 100, "Test director", "Test description", R.drawable.poster_2));
+        assertTrue(movieId > 0);
+        Movie movie = repository.getMovieById(movieId);
+        assertNotNull(movie);
+        assertEquals(3, repository.getShowtimes(movieId).size());
+        movie.setTitle("Edited test movie");
+        assertTrue(repository.updateMovie(movie));
+        assertEquals("Edited test movie", repository.getMovieById(movieId).getTitle());
+
+        Showtime showtime = repository.getShowtimes(movieId).get(0);
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(),
-                Arrays.asList("A1"), showtime.getPrice(), "Demo Visa") < 0);
+                Arrays.asList("A1"), showtime.getPrice() + 1, "Demo Visa") < 0);
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(),
                 new ArrayList<>(), 0, "Demo Visa") < 0);
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(),
                 Arrays.asList("Z1"), showtime.getPrice(), "Demo Visa") < 0);
-
-        List<String> available = new ArrayList<>();
-        for (char row = 'A'; row <= 'E' && available.size() < 2; row++) {
-            for (int seat = 1; seat <= 6 && available.size() < 2; seat++) {
-                String number = row + String.valueOf(seat);
-                if (!repository.getBookedSeats(showtime.getId()).contains(number)) available.add(number);
-            }
-        }
-        assertEquals(2, available.size());
+        List<String> available = Arrays.asList("A1", "A2");
+        assertTrue(repository.recordFailedPayment(1, showtime.getId(), Arrays.asList("A3"),
+                showtime.getPrice(), "Demo Visa"));
+        assertFalse(repository.getBookedSeats(showtime.getId()).contains("A3"));
         int bookingId = repository.createBookingAndPayment(1, showtime.getId(), available,
                 showtime.getPrice() * available.size(), "Ví MoMo · mô phỏng");
         assertTrue(bookingId > 0);
@@ -57,25 +66,20 @@ public class RepositoryTest {
         assertEquals("Ví MoMo · mô phỏng", booking.getPaymentMethod());
         assertEquals(available.size(), booking.getSeats().size());
         assertTrue(repository.getBookedSeats(showtime.getId()).containsAll(available));
-        assertEquals(bookingId, repository.getBookingsByUser(1).get(0).getId());
+        boolean listed = false;
+        for (Booking userBooking : repository.getBookingsByUser(1)) {
+            if (userBooking.getId() == bookingId) listed = true;
+        }
+        assertTrue(listed);
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(), available,
                 showtime.getPrice() * available.size(), "Demo Visa") < 0);
+        assertFalse(repository.deleteMovie(movieId));
 
-        String freeSeat = null;
-        for (char row = 'A'; row <= 'E' && freeSeat == null; row++) {
-            for (int seat = 1; seat <= 6; seat++) {
-                String number = row + String.valueOf(seat);
-                if (!repository.getBookedSeats(showtime.getId()).contains(number)) {
-                    freeSeat = number;
-                    break;
-                }
-            }
-        }
-        assertNotNull(freeSeat);
-        int bookingCount = repository.getBookingsByUser(1).size();
-        assertTrue(repository.recordFailedPayment(1, showtime.getId(),
-                Arrays.asList(freeSeat), showtime.getPrice(), "Demo Visa"));
-        assertEquals(bookingCount, repository.getBookingsByUser(1).size());
-        assertFalse(repository.getBookedSeats(showtime.getId()).contains(freeSeat));
+        int deletableMovieId = repository.createMovie(new Movie(0, "Delete test " + System.nanoTime(),
+                "Drama", 90, "Test director", "Test description", R.drawable.poster_3));
+        assertTrue(deletableMovieId > 0);
+        assertTrue(repository.deleteMovie(deletableMovieId));
+        assertNull(repository.getMovieById(deletableMovieId));
+        assertTrue(repository.getShowtimes(deletableMovieId).isEmpty());
     }
 }

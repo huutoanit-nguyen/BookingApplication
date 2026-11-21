@@ -14,7 +14,11 @@ public class LoginActivity extends BaseActivity {
     private TextInputLayout emailLayout, passwordLayout;
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
-        if (session.isLoggedIn()) { resetTo(MovieListActivity.class); return; }
+        if (session.isLoggedIn()) {
+            resetTo(repository.isAdmin(session.getUserId())
+                    ? AdminDashboardActivity.class : MovieListActivity.class);
+            return;
+        }
         setContentView(R.layout.activity_login);
         email = findViewById(R.id.email); password = findViewById(R.id.password);
         emailLayout = findViewById(R.id.email_layout); passwordLayout = findViewById(R.id.password_layout);
@@ -22,6 +26,10 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.register).setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
         findViewById(R.id.demo).setOnClickListener(v -> {
             email.setText("test@gmail.com"); password.setText("123456");
+            emailLayout.setError(null); passwordLayout.setError(null);
+        });
+        findViewById(R.id.demo_admin).setOnClickListener(v -> {
+            email.setText("admin@example.com"); password.setText("123456");
             emailLayout.setError(null); passwordLayout.setError(null);
         });
     }
@@ -37,6 +45,6 @@ public class LoginActivity extends BaseActivity {
         if (user == null) { passwordLayout.setError(getString(R.string.invalid_login)); return; }
         session.login(user.getId());
         Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
-        resetTo(MovieListActivity.class);
+        resetTo(user.isAdmin() ? AdminDashboardActivity.class : MovieListActivity.class);
     }
 }

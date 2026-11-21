@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="5dp" app:cardBackgroundColor="@color/surface" app:cardCornerRadius="14dp" app:strokeColor="@color/outline" app:strokeWidth="1dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="12dp">
+        <ImageView android:id="@+id/poster" android:layout_width="80dp" android:layout_height="116dp" android:scaleType="centerCrop" android:contentDescription="@string/poster_description" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+            <TextView android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:textSize="16sp" android:fontFamily="sans-serif-medium" android:maxLines="2" android:ellipsize="end" />
+            <TextView android:id="@+id/genre" android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginTop="4dp" android:maxLines="1" android:ellipsize="end" />
+            <TextView android:id="@+id/duration" android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginTop="2dp" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp">
+                <com.google.android.material.button.MaterialButton android:id="@+id/edit" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/edit" android:textSize="12sp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/delete" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="6dp" android:text="@string/delete" android:textSize="12sp" style="@style/CineButton.Outline" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
