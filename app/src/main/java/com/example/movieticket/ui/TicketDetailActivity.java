@@ -29,6 +29,8 @@ public class TicketDetailActivity extends BaseActivity {
         text(R.id.user, getString(R.string.ticket_user_format, booking.getUserId()));
         text(R.id.created_at, getString(R.string.ticket_created_format, booking.getCreatedAt()));
         text(R.id.total, getString(R.string.total_format, price(booking.getTotalPrice())));
+        text(R.id.payment_method, getString(R.string.payment_method_format, booking.getPaymentMethod()));
+        text(R.id.payment_status, getString(R.string.payment_status_success));
         findViewById(R.id.home).setOnClickListener(v -> resetTo(MovieListActivity.class));
     }
 }

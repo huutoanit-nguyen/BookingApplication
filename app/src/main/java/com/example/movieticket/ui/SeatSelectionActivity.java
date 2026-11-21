@@ -43,7 +43,11 @@ public class SeatSelectionActivity extends BaseActivity {
     }
     @Override protected void onResume() {
         super.onResume();
-        if (adapter != null && showtime != null) adapter.updateBooked(repository.getBookedSeats(showtime.getId()));
+        if (adapter != null && showtime != null) {
+            bookingInProgress = false;
+            adapter.updateBooked(repository.getBookedSeats(showtime.getId()));
+            updateSummary();
+        }
     }
     private void updateSummary() {
         List<String> selected = adapter.getSelected();
@@ -55,15 +59,10 @@ public class SeatSelectionActivity extends BaseActivity {
     private void book(View button) {
         if (bookingInProgress) return;
         bookingInProgress = true; button.setEnabled(false);
-        List<String> seats = adapter.getSelected();
-        if (!repository.createBooking(session.getUserId(), showtime.getId(), seats, seats.size() * showtime.getPrice())) {
-            bookingInProgress = false;
-            adapter.updateBooked(repository.getBookedSeats(showtime.getId()));
-            message(R.string.booking_failed); return;
-        }
-        int id = repository.getBookingsByUser(session.getUserId()).get(0).getId();
-        startActivity(new Intent(this, BookingSuccessActivity.class).putExtra(BOOKING_ID, id));
-        finish();
+        ArrayList<String> seats = new ArrayList<>(adapter.getSelected());
+        startActivity(new Intent(this, PaymentActivity.class)
+                .putExtra(SHOWTIME_ID, showtime.getId())
+                .putStringArrayListExtra(PaymentActivity.SELECTED_SEATS, seats));
     }
     @Override protected void onSaveInstanceState(@NonNull Bundle out) {
         if (adapter != null) out.putStringArrayList(SELECTED, new ArrayList<>(adapter.getSelected()));

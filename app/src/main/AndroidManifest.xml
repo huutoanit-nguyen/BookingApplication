@@ -4,6 +4,7 @@
         <activity android:name=".ui.TicketDetailActivity" android:exported="false" />
         <activity android:name=".ui.MyTicketsActivity" android:exported="false" />
         <activity android:name=".ui.BookingSuccessActivity" android:exported="false" />
+        <activity android:name=".ui.PaymentActivity" android:exported="false" />
         <activity android:name=".ui.SeatSelectionActivity" android:exported="false" />
         <activity android:name=".ui.MovieDetailActivity" android:exported="false" />
         <activity android:name=".ui.MovieListActivity" android:exported="false" />

@@ -9,6 +9,8 @@
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/time" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/seats" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/total" android:textColor="@color/lime" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/payment_method" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/payment_status" android:textColor="@color/lime" />
         <com.google.android.material.button.MaterialButton android:id="@+id/tickets" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/view_tickets" android:layout_marginTop="8dp" />
         <com.google.android.material.button.MaterialButton android:id="@+id/home" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home" android:layout_marginTop="8dp" style="@style/CineButton.Outline" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/demo_note" android:textSize="12sp" android:layout_marginTop="25dp" />

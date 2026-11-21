@@ -12,10 +12,17 @@ public class Booking {
     private List<String> seats;
     private int totalPrice;
     private String createdAt;
+    private String paymentMethod;
+    private String paymentStatus;
 
     public Booking() {}
 
     public Booking(int id, int userId, int showtimeId, String movieTitle, String startTime, List<String> seats, int totalPrice, String createdAt) {
+        this(id, userId, showtimeId, movieTitle, startTime, seats, totalPrice, createdAt, "", "");
+    }
+
+    public Booking(int id, int userId, int showtimeId, String movieTitle, String startTime, List<String> seats,
+                   int totalPrice, String createdAt, String paymentMethod, String paymentStatus) {
         this.id = id;
         this.userId = userId;
         this.showtimeId = showtimeId;
@@ -24,6 +31,8 @@ public class Booking {
         this.seats = new ArrayList<>(seats);
         this.totalPrice = totalPrice;
         this.createdAt = createdAt;
+        this.paymentMethod = paymentMethod;
+        this.paymentStatus = paymentStatus;
     }
 
     public int getId() { return id; }
@@ -49,4 +58,10 @@ public class Booking {
 
     public String getCreatedAt() { return createdAt; }
     public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+
+    public String getPaymentMethod() { return paymentMethod; }
+    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+
+    public String getPaymentStatus() { return paymentStatus; }
+    public void setPaymentStatus(String paymentStatus) { this.paymentStatus = paymentStatus; }
 }

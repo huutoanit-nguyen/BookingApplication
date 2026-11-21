@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
-        repository = Repository.getInstance();
+        repository = Repository.getInstance(this);
         session = new SessionManager(this);
     }
     protected boolean requireLogin() {

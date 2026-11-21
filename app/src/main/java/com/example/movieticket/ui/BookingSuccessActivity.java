@@ -18,6 +18,8 @@ public class BookingSuccessActivity extends BaseActivity {
         text(R.id.time, getString(R.string.ticket_time_format, booking.getStartTime()));
         text(R.id.seats, getString(R.string.ticket_seats_format, TextUtils.join(", ", booking.getSeats())));
         text(R.id.total, getString(R.string.total_format, price(booking.getTotalPrice())));
+        text(R.id.payment_method, getString(R.string.payment_method_format, booking.getPaymentMethod()));
+        text(R.id.payment_status, getString(R.string.payment_status_success));
         findViewById(R.id.home).setOnClickListener(v -> resetTo(MovieListActivity.class));
         findViewById(R.id.tickets).setOnClickListener(v -> {
             Intent home = new Intent(this, MovieListActivity.class)

@@ -1,6 +1,6 @@
 # Ciné — Ứng dụng Android đặt vé xem phim
 
-Java · XML · Material Components · min SDK 24. Không database, không API,
+Java · XML · Material Components · SQLite · min SDK 24. Không backend/API,
 không thư viện ảnh và không thanh toán thật.
 
 ## Mở project
@@ -16,7 +16,7 @@ không thư viện ảnh và không thanh toán thật.
 ```
 app/src/main/java/com/example/movieticket/
 ├── model/       User, Movie, Showtime, Booking
-├── data/        Repository, SessionManager
+├── data/        Repository, DatabaseHelper, SessionManager
 ├── adapter/     MovieAdapter, ShowtimeAdapter, SeatAdapter, BookingAdapter
 └── ui/          BaseActivity, SplashActivity và 8 Activity chức năng
 app/src/main/res/
@@ -25,17 +25,19 @@ app/src/main/res/
 └── values/      strings.xml, colors.xml, styles.xml
 ```
 
-- Các Activity chỉ lấy và gửi dữ liệu qua `Repository.getInstance()`.
-- Repository singleton lưu dữ liệu trong RAM, khởi tạo 6 phim, 18 suất chiếu,
-  một tài khoản và 5 ghế đặt sẵn cho từng suất chiếu.
-- Đặt vé cập nhật ghế bận và danh sách vé **trong cùng phiên chạy**.
-- SessionManager chỉ lưu `userId` bằng SharedPreferences. Mở lại app vẫn giữ
-  phiên đăng nhập; dữ liệu tài khoản mới, ghế mới đặt và vé sẽ mất khi tiến
-  trình bị hủy, đúng chủ đích dữ liệu giả trong bộ nhớ.
+- Các Activity lấy dữ liệu qua `Repository.getInstance(context)`.
+- Repository singleton đọc/ghi SQLite cục bộ (`cine.db`), khởi tạo 6 phim,
+  18 suất chiếu, một tài khoản và 5 ghế đặt sẵn cho từng suất chiếu.
+- Đặt vé chuyển sang màn hình thanh toán demo. Chọn thẻ/Ví MoMo/Ví ZaloPay mô
+  phỏng; có thể xác nhận thành công hoặc thử luồng thất bại. Chỉ thanh toán
+  thành công mới tạo vé và giữ ghế, trong một giao dịch SQLite nguyên tử.
+- Người dùng, phim, suất chiếu, ghế, vé và bản ghi thanh toán được lưu cục bộ
+  nên vẫn còn sau khi đóng/mở lại app. SessionManager lưu `userId` bằng
+  SharedPreferences.
 - Màn hình được bảo vệ ở BaseActivity; đăng xuất xóa back stack.
 - Dùng RecyclerView với GridLayoutManager cho phim và 30 ghế (A–E × 6).
 - Ghế xanh: trống; vàng: đang chọn; xám: đã đặt. Giới hạn 6 ghế.
-- Không có QR code thanh toán hoặc mã soát vé thật; mã đặt vé chỉ để minh họa.
+- Không kết nối cổng thanh toán, không thu thập dữ liệu thẻ; mã đặt vé chỉ để minh họa.
 - Chuỗi và màu layout nằm trong resource; không có chữ/màu hard-code trong XML layout.
 
 ## Luồng kiểm thử thủ công
@@ -47,20 +49,21 @@ app/src/main/res/
 5. Đăng nhập bằng tài khoản test, tắt/mở app: vào danh sách phim.
 6. Chọn phim → xem 3 suất → chọn ghế. Ghế bận không bấm được.
 7. Chọn 6 ghế; ghế thứ 7 báo Snackbar. Bỏ chọn cập nhật tiền, chưa chọn không đặt được.
-8. Đặt vé → mã đặt → Vé của tôi → đầy đủ thông tin vé.
-9. Quay lại cùng suất chiếu: ghế đã đặt đổi màu xám.
-10. Đăng xuất → Back không trở về trang được bảo vệ.
+8. Vào thanh toán, thử mô phỏng thất bại: không tạo vé và ghế vẫn trống; xác nhận demo thành công: hiện mã vé và phương thức thanh toán.
+9. Mở Vé của tôi, kiểm tra vé; đóng/mở app và kiểm tra dữ liệu vẫn còn.
+10. Quay lại cùng suất chiếu: ghế đã đặt đổi màu xám. Đăng xuất → Back không trở về trang được bảo vệ.
 
-## Thay SQLite sau này
+## Database và thanh toán
 
-Mỗi phương thức Repository có `// TODO: thay bằng SQLite`. Thay phần thân
-các phương thức bằng truy vấn SQLite, giữ nguyên chữ ký phương thức.
-Không cần đổi Adapter hoặc UI. Không lưu mật khẩu dạng rõ trong ứng dụng thật.
+DatabaseHelper tạo schema SQLite và dữ liệu phim mẫu khi chạy lần đầu. Thanh
+toán chỉ là mô phỏng; cần backend và tích hợp nhà cung cấp thanh toán để xử lý
+giao dịch thật. Không lưu hoặc gửi thông tin thẻ trong ứng dụng demo này.
 
 ## Kiểm thử Repository
 
-Trong Android Studio: chạy `RepositoryTest`, hoặc `./gradlew :app:testDebugUnitTest`
-sau khi cấu hình Gradle/Android SDK. Test sử dụng drawable ID được Android sinh.
+Trong Android Studio: chạy `RepositoryTest` trên emulator/thiết bị, hoặc
+`./gradlew :app:connectedDebugAndroidTest` sau khi cấu hình Gradle/Android SDK
+và khởi động thiết bị kiểm thử.
 
 Môi trường bản xem trước Figma chỉ chạy React/Vite, không có Android SDK/JDK;
 project native cần được build và kiểm tra hiển thị trên Android Studio.

@@ -49,7 +49,7 @@
     <string name="total_format">Tổng thanh toán: %1$s</string>
     <string name="book">Đặt vé</string>
     <string name="booking_success">Hẹn bạn tại rạp!</string>
-    <string name="success_caption">Đặt vé thành công. Chỗ ngồi của bạn đã sẵn sàng.</string>
+    <string name="success_caption">Thanh toán thành công. Chỗ ngồi của bạn đã sẵn sàng.</string>
     <string name="booking_code_format">Mã đặt vé: %1$s</string>
     <string name="home">Về trang chủ</string>
     <string name="view_tickets">Xem vé của tôi</string>
@@ -58,7 +58,7 @@
     <string name="empty_title">Chưa có cuộc hẹn nào</string>
     <string name="empty_message">Một bộ phim hay đang đợi bạn.\nKhám phá và đặt tấm vé đầu tiên ngay hôm nay.</string>
     <string name="discover">Khám phá phim</string>
-    <string name="demo_note">Dữ liệu mô phỏng, chỉ lưu trong phiên chạy thử. Không phát sinh thanh toán.</string>
+    <string name="demo_note">Thông tin demo được lưu cục bộ bằng SQLite. Không phát sinh thanh toán thật.</string>
     <string name="booked_status">Đã đặt thành công</string>
     <string name="ticket_seats_format">Ghế: %1$s</string>
     <string name="ticket_time_format">Suất chiếu: %1$s</string>
@@ -110,4 +110,18 @@
     <string name="seat_booked_description">Ghế %1$s, đã đặt</string>
     <string name="seat_chosen_description">Ghế %1$s, đang chọn</string>
     <string name="seat_available_description">Ghế %1$s, còn trống</string>
+    <string name="payment_heading">Thanh toán vé.</string>
+    <string name="payment_caption">Kiểm tra thông tin ghế và tổng tiền trước khi xác nhận.</string>
+    <string name="payment_showtime_format">%1$s\nSuất chiếu: %2$s · %3$s</string>
+    <string name="payment_method_heading">Chọn phương thức</string>
+    <string name="method_card_demo">Thẻ ngân hàng · mô phỏng</string>
+    <string name="method_momo_demo">Ví MoMo · mô phỏng</string>
+    <string name="method_zalopay_demo">Ví ZaloPay · mô phỏng</string>
+    <string name="payment_demo_notice">Đây là giao dịch thử nghiệm. Không nhập hoặc gửi thông tin thẻ; ứng dụng không kết nối cổng thanh toán thật.</string>
+    <string name="confirm_payment">Xác nhận thanh toán demo</string>
+    <string name="simulate_payment_failure">Mô phỏng giao dịch thất bại</string>
+    <string name="payment_method_required">Vui lòng chọn phương thức thanh toán.</string>
+    <string name="payment_failed_demo">Thanh toán thất bại (mô phỏng). Chưa tạo vé và chưa giữ ghế; bạn có thể thử lại.</string>
+    <string name="payment_method_format">Phương thức: %1$s</string>
+    <string name="payment_status_success">Trạng thái: Đã thanh toán (demo)</string>
 </resources>

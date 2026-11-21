@@ -15,6 +15,8 @@
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/user" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/created_at" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineHeading" android:layout_marginBottom="12dp" android:id="@+id/total" android:textSize="24sp" android:textColor="@color/lime" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/payment_method" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:id="@+id/payment_status" android:textColor="@color/lime" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/arrive_note" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content" style="@style/CineBody" android:layout_marginBottom="12dp" android:text="@string/demo_note" android:textSize="11sp" />
         <com.google.android.material.button.MaterialButton android:id="@+id/home" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/home" android:layout_marginTop="8dp" />
