@@ -38,6 +38,13 @@ public class AdminDashboardActivity extends BaseActivity {
         movies.setAdapter(adapter);
         findViewById(R.id.add_movie).setOnClickListener(v ->
                 startActivity(new Intent(this, AdminMovieFormActivity.class)));
+        findViewById(R.id.logout).setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.logout_title).setMessage(R.string.logout_message)
+                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(R.string.logout, (dialog, which) -> {
+                    session.logout();
+                    resetTo(LoginActivity.class);
+                }).show());
         refreshMovies();
     }
 
