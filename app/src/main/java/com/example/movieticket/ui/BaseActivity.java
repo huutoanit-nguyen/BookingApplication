@@ -53,6 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected String price(int amount) {
         return getString(R.string.price_format, NumberFormat.getNumberInstance(Locale.forLanguageTag("vi-VN")).format(amount));
     }
+    protected String price(long amount) {
+        return getString(R.string.price_format, NumberFormat.getNumberInstance(Locale.forLanguageTag("vi-VN")).format(amount));
+    }
     protected void message(int stringId) { Snackbar.make(findViewById(android.R.id.content), stringId, Snackbar.LENGTH_LONG).show(); }
     protected void missingData() {
         Toast.makeText(this, R.string.missing_data, Toast.LENGTH_SHORT).show();

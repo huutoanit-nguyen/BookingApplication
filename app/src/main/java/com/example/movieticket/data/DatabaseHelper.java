@@ -11,7 +11,7 @@ import java.util.Locale;
 
 final class DatabaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "cine.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private final Context context;
 
     DatabaseHelper(Context context) {
@@ -45,6 +45,7 @@ final class DatabaseHelper extends SQLiteOpenHelper {
                 + "booking_id INTEGER, PRIMARY KEY(showtime_id, seat_number), "
                 + "FOREIGN KEY(showtime_id) REFERENCES showtimes(id), "
                 + "FOREIGN KEY(booking_id) REFERENCES bookings(id) ON DELETE CASCADE)");
+        createAnalyticsTables(db);
         seed(db);
     }
 
@@ -53,9 +54,22 @@ final class DatabaseHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'USER'");
             seedAdmin(db);
         }
+        if (oldVersion < 3) createAnalyticsTables(db);
         if (newVersion > DATABASE_VERSION) {
             throw new IllegalStateException("Unsupported database upgrade: " + oldVersion + " -> " + newVersion);
         }
+    }
+
+    private void createAnalyticsTables(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE login_events (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "user_id INTEGER NOT NULL, logged_at TEXT NOT NULL, "
+                + "FOREIGN KEY(user_id) REFERENCES users(id))");
+        db.execSQL("CREATE TABLE movie_views (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + "movie_id INTEGER NOT NULL, user_id INTEGER NOT NULL, viewed_at TEXT NOT NULL, "
+                + "FOREIGN KEY(movie_id) REFERENCES movies(id), FOREIGN KEY(user_id) REFERENCES users(id))");
+        db.execSQL("CREATE INDEX login_events_user_idx ON login_events(user_id)");
+        db.execSQL("CREATE INDEX movie_views_movie_idx ON movie_views(movie_id)");
+        db.execSQL("CREATE INDEX movie_views_user_idx ON movie_views(user_id)");
     }
 
     private void seed(SQLiteDatabase db) {

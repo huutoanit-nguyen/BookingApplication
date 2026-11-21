@@ -17,6 +17,7 @@ public class MovieDetailActivity extends BaseActivity {
         if (!requireLogin()) return;
         Movie movie = repository.getMovieById(getIntent().getIntExtra(MOVIE_ID, -1));
         if (movie == null) { missingData(); return; }
+        if (state == null) repository.recordMovieView(session.getUserId(), movie.getId());
         setContentView(R.layout.activity_movie_detail);
         backButton();
         ((ImageView) findViewById(R.id.poster)).setImageResource(movie.getPoster());

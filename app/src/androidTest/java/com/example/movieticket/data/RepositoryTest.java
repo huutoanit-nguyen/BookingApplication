@@ -3,6 +3,7 @@ package com.example.movieticket.data;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.example.movieticket.R;
+import com.example.movieticket.model.AdminStats;
 import com.example.movieticket.model.Booking;
 import com.example.movieticket.model.Movie;
 import com.example.movieticket.model.Showtime;
@@ -45,6 +46,15 @@ public class RepositoryTest {
         assertTrue(repository.updateMovie(movie));
         assertEquals("Edited test movie", repository.getMovieById(movieId).getTitle());
 
+        AdminStats statsBeforeTracking = repository.getAdminStats();
+        repository.recordLogin(1);
+        repository.recordMovieView(1, movieId);
+        repository.recordMovieView(1, movieId);
+        AdminStats trackedStats = repository.getAdminStats();
+        assertEquals(statsBeforeTracking.getLoginCount() + 1, trackedStats.getLoginCount());
+        assertEquals(statsBeforeTracking.getMovieViewCount() + 2, trackedStats.getMovieViewCount());
+        assertEquals(2, repository.getMovieViewCounts().get(movieId).intValue());
+
         Showtime showtime = repository.getShowtimes(movieId).get(0);
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(),
                 Arrays.asList("A1"), showtime.getPrice() + 1, "Demo Visa") < 0);
@@ -56,6 +66,7 @@ public class RepositoryTest {
         assertTrue(repository.recordFailedPayment(1, showtime.getId(), Arrays.asList("A3"),
                 showtime.getPrice(), "Demo Visa"));
         assertFalse(repository.getBookedSeats(showtime.getId()).contains("A3"));
+        AdminStats statsBeforeBooking = repository.getAdminStats();
         int bookingId = repository.createBookingAndPayment(1, showtime.getId(), available,
                 showtime.getPrice() * available.size(), "Ví MoMo · mô phỏng");
         assertTrue(bookingId > 0);
@@ -71,6 +82,10 @@ public class RepositoryTest {
             if (userBooking.getId() == bookingId) listed = true;
         }
         assertTrue(listed);
+        AdminStats paidStats = repository.getAdminStats();
+        assertEquals(statsBeforeBooking.getTicketCount() + available.size(), paidStats.getTicketCount());
+        assertEquals(statsBeforeBooking.getRevenue() + showtime.getPrice() * available.size(),
+                paidStats.getRevenue());
         assertTrue(repository.createBookingAndPayment(1, showtime.getId(), available,
                 showtime.getPrice() * available.size(), "Demo Visa") < 0);
         assertFalse(repository.deleteMovie(movieId));
@@ -78,8 +93,10 @@ public class RepositoryTest {
         int deletableMovieId = repository.createMovie(new Movie(0, "Delete test " + System.nanoTime(),
                 "Drama", 90, "Test director", "Test description", R.drawable.poster_3));
         assertTrue(deletableMovieId > 0);
+        repository.recordMovieView(1, deletableMovieId);
         assertTrue(repository.deleteMovie(deletableMovieId));
         assertNull(repository.getMovieById(deletableMovieId));
         assertTrue(repository.getShowtimes(deletableMovieId).isEmpty());
+        assertFalse(repository.getMovieViewCounts().containsKey(deletableMovieId));
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.example.movieticket.model.Booking;
+import com.example.movieticket.model.AdminStats;
 import com.example.movieticket.model.Movie;
 import com.example.movieticket.model.Showtime;
 import com.example.movieticket.model.User;
@@ -13,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
 
 /** Provides persistent access to the app's local demo data. */
@@ -48,6 +51,47 @@ public final class Repository {
                 new String[]{String.valueOf(userId)}, null, null, null)) {
             return cursor.moveToFirst() && "ADMIN".equals(cursor.getString(0));
         }
+    }
+
+    public synchronized void recordLogin(int userId) {
+        ContentValues values = new ContentValues();
+        values.put("user_id", userId);
+        values.put("logged_at", now());
+        database().insertOrThrow("login_events", null, values);
+    }
+
+    public synchronized void recordMovieView(int userId, int movieId) {
+        ContentValues values = new ContentValues();
+        values.put("user_id", userId);
+        values.put("movie_id", movieId);
+        values.put("viewed_at", now());
+        database().insertOrThrow("movie_views", null, values);
+    }
+
+    public synchronized AdminStats getAdminStats() {
+        String sql = "SELECT "
+                + "(SELECT COUNT(*) FROM users WHERE role = 'USER'), "
+                + "(SELECT COUNT(DISTINCT l.user_id) FROM login_events l JOIN users u ON u.id = l.user_id WHERE u.role = 'USER'), "
+                + "(SELECT COUNT(*) FROM login_events l JOIN users u ON u.id = l.user_id WHERE u.role = 'USER'), "
+                + "(SELECT COUNT(*) FROM movie_views v JOIN users u ON u.id = v.user_id WHERE u.role = 'USER'), "
+                + "(SELECT COUNT(DISTINCT v.user_id) FROM movie_views v JOIN users u ON u.id = v.user_id WHERE u.role = 'USER'), "
+                + "(SELECT COUNT(*) FROM booked_seats WHERE booking_id IS NOT NULL), "
+                + "(SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status = 'SUCCESS')";
+        try (Cursor cursor = database().rawQuery(sql, null)) {
+            if (!cursor.moveToFirst()) throw new IllegalStateException("Unable to query admin statistics");
+            return new AdminStats(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2),
+                    cursor.getInt(3), cursor.getInt(4), cursor.getInt(5), cursor.getLong(6));
+        }
+    }
+
+    public synchronized Map<Integer, Integer> getMovieViewCounts() {
+        Map<Integer, Integer> result = new HashMap<>();
+        String sql = "SELECT v.movie_id, COUNT(*) FROM movie_views v "
+                + "JOIN users u ON u.id = v.user_id WHERE u.role = 'USER' GROUP BY v.movie_id";
+        try (Cursor cursor = database().rawQuery(sql, null)) {
+            while (cursor.moveToNext()) result.put(cursor.getInt(0), cursor.getInt(1));
+        }
+        return result;
     }
 
     public synchronized boolean register(User user) {
@@ -108,6 +152,7 @@ public final class Repository {
         try {
             if (getMovieById(movieId) == null || hasBookingsOrPayments(db, movieId)) return false;
             String showtimes = "SELECT id FROM showtimes WHERE movie_id = ?";
+            db.delete("movie_views", "movie_id = ?", new String[]{String.valueOf(movieId)});
             db.delete("booked_seats", "showtime_id IN (" + showtimes + ")",
                     new String[]{String.valueOf(movieId)});
             db.delete("showtimes", "movie_id = ?", new String[]{String.valueOf(movieId)});

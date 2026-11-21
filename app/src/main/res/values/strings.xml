@@ -147,6 +147,9 @@
     <string name="delete_movie_message">Bạn có chắc muốn xóa “%1$s”?</string>
     <string name="movie_deleted">Đã xóa phim và các suất chiếu chưa có giao dịch.</string>
     <string name="movie_delete_blocked">Không thể xóa phim đã có vé hoặc giao dịch thanh toán.</string>
+    <string name="admin_analytics_format">Khách: %1$d · Từng đăng nhập: %2$d tài khoản\nLượt đăng nhập: %3$d · Lượt xem chi tiết: %4$d\nNgười xem duy nhất: %5$d · Vé đã bán: %6$d\nDoanh thu demo: %7$s</string>
+    <string name="movie_views_format">%1$d lượt xem chi tiết</string>
+    <string name="analytics_local_note">Thống kê chỉ trên thiết bị này. Lượt xem được ghi nhận khi mở chi tiết phim; tài khoản đăng nhập là khách từng đăng nhập thành công; doanh thu chỉ gồm thanh toán demo thành công.</string>
     <string-array name="movie_posters">
         <item>Poster mẫu 1</item>
         <item>Poster mẫu 2</item>

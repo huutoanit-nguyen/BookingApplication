@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.movieticket.R;
 import com.example.movieticket.adapter.AdminMovieAdapter;
+import com.example.movieticket.model.AdminStats;
 import com.example.movieticket.model.Movie;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
@@ -54,8 +55,13 @@ public class AdminDashboardActivity extends BaseActivity {
     }
 
     private void refreshMovies() {
-        adapter.replaceMovies(repository.getMovies());
+        AdminStats stats = repository.getAdminStats();
+        adapter.replaceMovies(repository.getMovies(), repository.getMovieViewCounts());
         text(R.id.movie_count, getString(R.string.admin_movie_count_format, adapter.getItemCount()));
+        text(R.id.analytics, getString(R.string.admin_analytics_format,
+                stats.getCustomers(), stats.getLoggedInCustomers(), stats.getLoginCount(),
+                stats.getMovieViewCount(), stats.getUniqueViewers(), stats.getTicketCount(),
+                price(stats.getRevenue())));
     }
 
     private void deleteMovie(Movie movie) {

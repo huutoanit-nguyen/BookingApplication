@@ -43,6 +43,7 @@ public class LoginActivity extends BaseActivity {
         if (!valid) return;
         User user = repository.login(e, p);
         if (user == null) { passwordLayout.setError(getString(R.string.invalid_login)); return; }
+        repository.recordLogin(user.getId());
         session.login(user.getId());
         Toast.makeText(this, R.string.login_success, Toast.LENGTH_SHORT).show();
         resetTo(user.isAdmin() ? AdminDashboardActivity.class : MovieListActivity.class);

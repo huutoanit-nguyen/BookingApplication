@@ -12,6 +12,7 @@ import com.example.movieticket.model.Movie;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Holder> {
     public interface Listener {
@@ -21,15 +22,18 @@ public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Ho
 
     private final List<Movie> movies;
     private final Listener listener;
+    private Map<Integer, Integer> viewCounts;
 
     public AdminMovieAdapter(List<Movie> movies, Listener listener) {
         this.movies = new ArrayList<>(movies);
         this.listener = listener;
+        this.viewCounts = java.util.Collections.emptyMap();
     }
 
-    public void replaceMovies(List<Movie> updatedMovies) {
+    public void replaceMovies(List<Movie> updatedMovies, Map<Integer, Integer> movieViewCounts) {
         movies.clear();
         movies.addAll(updatedMovies);
+        viewCounts = movieViewCounts;
         notifyDataSetChanged();
     }
 
@@ -45,6 +49,9 @@ public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Ho
         holder.genre.setText(movie.getGenre());
         holder.duration.setText(holder.itemView.getContext()
                 .getString(R.string.duration_format, movie.getDuration()));
+        Integer views = viewCounts.get(movie.getId());
+        holder.views.setText(holder.itemView.getContext().getString(
+                R.string.movie_views_format, views == null ? 0 : views));
         holder.edit.setOnClickListener(v -> listener.onEdit(movie));
         holder.delete.setOnClickListener(v -> listener.onDelete(movie));
     }
@@ -53,7 +60,7 @@ public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Ho
 
     static class Holder extends RecyclerView.ViewHolder {
         final ImageView poster;
-        final TextView title, genre, duration;
+        final TextView title, genre, duration, views;
         final MaterialButton edit, delete;
 
         Holder(View view) {
@@ -62,6 +69,7 @@ public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Ho
             title = view.findViewById(R.id.title);
             genre = view.findViewById(R.id.genre);
             duration = view.findViewById(R.id.duration);
+            views = view.findViewById(R.id.views);
             edit = view.findViewById(R.id.edit);
             delete = view.findViewById(R.id.delete);
         }

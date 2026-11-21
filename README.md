@@ -30,6 +30,9 @@ app/src/main/res/
   18 suất chiếu, tài khoản khách/admin và 5 ghế đặt sẵn cho từng suất chiếu.
 - Admin đăng nhập để vào dashboard, thêm/sửa/xóa phim và chọn poster mẫu.
   Phim mới tự có 3 suất chiếu mẫu. Không cho xóa phim đã có vé hoặc giao dịch.
+- Dashboard thống kê tài khoản khách, lượt đăng nhập thành công, lượt mở chi
+  tiết phim (tổng và người xem duy nhất), vé bán và doanh thu thanh toán demo.
+  Đây là dữ liệu cục bộ trên thiết bị, không đồng bộ giữa các máy.
 - Đặt vé chuyển sang màn hình thanh toán demo. Chọn thẻ/Ví MoMo/Ví ZaloPay mô
   phỏng; có thể xác nhận thành công hoặc thử luồng thất bại. Chỉ thanh toán
   thành công mới tạo vé và giữ ghế, trong một giao dịch SQLite nguyên tử.
@@ -55,6 +58,7 @@ app/src/main/res/
 9. Mở Vé của tôi, kiểm tra vé; đóng/mở app và kiểm tra dữ liệu vẫn còn.
 10. Quay lại cùng suất chiếu: ghế đã đặt đổi màu xám. Đăng xuất → Back không trở về trang được bảo vệ.
 11. Đăng nhập `admin@example.com / 123456`: thêm/sửa/xóa một phim chưa có giao dịch; thử xóa phim đã có vé và xác nhận app chặn thao tác.
+12. Admin mở một số phim bằng tài khoản khách; đăng nhập và đặt vé demo thành công. Vào lại dashboard để kiểm tra lượt xem, đăng nhập, vé và doanh thu tăng.
 
 ## Database và thanh toán
 
