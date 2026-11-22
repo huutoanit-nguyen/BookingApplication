@@ -20,7 +20,7 @@ public class MovieDetailActivity extends BaseActivity {
         if (state == null) repository.recordMovieView(session.getUserId(), movie.getId());
         setContentView(R.layout.activity_movie_detail);
         backButton();
-        ((ImageView) findViewById(R.id.poster)).setImageResource(movie.getPoster());
+        loadPoster(findViewById(R.id.poster), movie.getPoster());
         text(R.id.title, movie.getTitle()); text(R.id.genre, movie.getGenre());
         text(R.id.duration, getString(R.string.duration_format, movie.getDuration()));
         text(R.id.director, getString(R.string.director_format, movie.getDirector()));

@@ -7,11 +7,11 @@ public class Movie {
     private int duration;
     private String director;
     private String description;
-    private int poster;
+    private String poster;
 
     public Movie() {}
 
-    public Movie(int id, String title, String genre, int duration, String director, String description, int poster) {
+    public Movie(int id, String title, String genre, int duration, String director, String description, String poster) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -39,6 +39,6 @@ public class Movie {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public int getPoster() { return poster; }
-    public void setPoster(int poster) { this.poster = poster; }
+    public String getPoster() { return poster; }
+    public void setPoster(String poster) { this.poster = poster; }
 }

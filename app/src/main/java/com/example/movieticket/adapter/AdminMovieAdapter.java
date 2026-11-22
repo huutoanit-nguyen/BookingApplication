@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.movieticket.R;
 import com.example.movieticket.model.Movie;
+import com.example.movieticket.ui.BaseActivity;
 import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class AdminMovieAdapter extends RecyclerView.Adapter<AdminMovieAdapter.Ho
 
     @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
         Movie movie = movies.get(position);
-        holder.poster.setImageResource(movie.getPoster());
+        BaseActivity.loadPoster(holder.poster, movie.getPoster());
         holder.title.setText(movie.getTitle());
         holder.genre.setText(movie.getGenre());
         holder.duration.setText(holder.itemView.getContext()

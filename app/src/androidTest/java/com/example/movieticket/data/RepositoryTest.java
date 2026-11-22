@@ -37,7 +37,7 @@ public class RepositoryTest {
         assertNotNull(repository.login(email, "123456"));
 
         int movieId = repository.createMovie(new Movie(0, "Test movie " + System.nanoTime(),
-                "Drama", 100, "Test director", "Test description", R.drawable.poster_2));
+                "Drama", 100, "Test director", "Test description", String.valueOf(R.drawable.poster_2)));
         assertTrue(movieId > 0);
         Movie movie = repository.getMovieById(movieId);
         assertNotNull(movie);
@@ -91,7 +91,7 @@ public class RepositoryTest {
         assertFalse(repository.deleteMovie(movieId));
 
         int deletableMovieId = repository.createMovie(new Movie(0, "Delete test " + System.nanoTime(),
-                "Drama", 90, "Test director", "Test description", R.drawable.poster_3));
+                "Drama", 90, "Test director", "Test description", String.valueOf(R.drawable.poster_3)));
         assertTrue(deletableMovieId > 0);
         repository.recordMovieView(1, deletableMovieId);
         assertTrue(repository.deleteMovie(deletableMovieId));

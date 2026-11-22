@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background">#0D0F0D</color>
-    <color name="surface">#171D13</color>
-    <color name="surface_input">#20271B</color>
-    <color name="lime">#C1F65D</color>
-    <color name="on_lime">#17200E</color>
-    <color name="text_primary">#F4F6EF</color>
-    <color name="text_secondary">#9AA58E</color>
-    <color name="outline">#35422A</color>
-    <color name="seat_available">#37642A</color>
+    <color name="background">#171212</color>
+    <color name="surface">#221A1A</color>
+    <color name="surface_input">#2D2323</color>
+    <color name="lime">#E53935</color>
+    <color name="on_lime">#FFFFFF</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B8A2A2</color>
+    <color name="outline">#4A3535</color>
+    <color name="seat_available">#5A2E2E</color>
     <color name="seat_selected">#E3CA61</color>
-    <color name="seat_booked">#4B5146</color>
+    <color name="seat_booked">#4B4141</color>
     <color name="error">#F0988C</color>
     <color name="poster_sand">#BE9365</color>
     <color name="poster_rose">#C1667A</color>
@@ -18,4 +18,12 @@
     <color name="poster_violet">#77629D</color>
     <color name="poster_teal">#448B83</color>
     <color name="poster_amber">#C49B50</color>
+    <color name="admin_background">#171212</color>
+    <color name="admin_surface">#221A1A</color>
+    <color name="admin_surface_input">#2D2323</color>
+    <color name="admin_accent">#E53935</color>
+    <color name="admin_on_accent">#FFFFFF</color>
+    <color name="admin_text_primary">#FFFFFF</color>
+    <color name="admin_text_secondary">#B8A2A2</color>
+    <color name="admin_outline">#4A3535</color>
 </resources>

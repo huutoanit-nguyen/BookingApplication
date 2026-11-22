@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.movieticket.R;
 import com.example.movieticket.model.Movie;
+import com.example.movieticket.ui.BaseActivity;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Holder> {
@@ -23,7 +24,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Holder> {
     }
     @Override public void onBindViewHolder(@NonNull Holder h, int position) {
         Movie movie = movies.get(position);
-        h.poster.setImageResource(movie.getPoster());
+        BaseActivity.loadPoster(h.poster, movie.getPoster());
         h.poster.setContentDescription(movie.getTitle());
         h.title.setText(movie.getTitle());
         h.genre.setText(movie.getGenre());

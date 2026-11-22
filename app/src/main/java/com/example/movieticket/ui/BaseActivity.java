@@ -65,4 +65,33 @@ public abstract class BaseActivity extends AppCompatActivity {
         Booking booking = repository.getBookingById(getIntent().getIntExtra(BOOKING_ID, -1));
         return booking != null && booking.getUserId() == session.getUserId() ? booking : null;
     }
+
+    public static void loadPoster(android.widget.ImageView imageView, String poster) {
+        if (poster == null || poster.trim().isEmpty()) {
+            imageView.setImageResource(R.drawable.poster_1);
+            return;
+        }
+        String trimmed = poster.trim();
+        try {
+            if (trimmed.startsWith("content://") || trimmed.startsWith("file://") || trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+                imageView.setImageURI(android.net.Uri.parse(trimmed));
+            } else {
+                int resId = Integer.parseInt(trimmed);
+                imageView.setImageResource(resId);
+            }
+        } catch (NumberFormatException e) {
+            try {
+                int resId = imageView.getContext().getResources().getIdentifier(trimmed, "drawable", imageView.getContext().getPackageName());
+                if (resId != 0) {
+                    imageView.setImageResource(resId);
+                } else {
+                    imageView.setImageURI(android.net.Uri.parse(trimmed));
+                }
+            } catch (Exception ex) {
+                imageView.setImageResource(R.drawable.poster_1);
+            }
+        } catch (Exception e) {
+            imageView.setImageResource(R.drawable.poster_1);
+        }
+    }
 }

@@ -11,7 +11,7 @@ import java.util.Locale;
 
 final class DatabaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "cine.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private final Context context;
 
     DatabaseHelper(Context context) {
@@ -28,7 +28,7 @@ final class DatabaseHelper extends SQLiteOpenHelper {
                 + "email TEXT NOT NULL COLLATE NOCASE UNIQUE, phone TEXT NOT NULL, password TEXT NOT NULL, "
                 + "role TEXT NOT NULL DEFAULT 'USER')");
         db.execSQL("CREATE TABLE movies (id INTEGER PRIMARY KEY, title TEXT NOT NULL, genre TEXT NOT NULL, "
-                + "duration INTEGER NOT NULL, director TEXT NOT NULL, description TEXT NOT NULL, poster INTEGER NOT NULL)");
+                + "duration INTEGER NOT NULL, director TEXT NOT NULL, description TEXT NOT NULL, poster TEXT NOT NULL)");
         db.execSQL("CREATE TABLE showtimes (id INTEGER PRIMARY KEY, movie_id INTEGER NOT NULL, room TEXT NOT NULL, "
                 + "start_time TEXT NOT NULL, price INTEGER NOT NULL, "
                 + "FOREIGN KEY(movie_id) REFERENCES movies(id) ON DELETE CASCADE)");
@@ -50,14 +50,15 @@ final class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'USER'");
-            seedAdmin(db);
-        }
-        if (oldVersion < 3) createAnalyticsTables(db);
-        if (newVersion > DATABASE_VERSION) {
-            throw new IllegalStateException("Unsupported database upgrade: " + oldVersion + " -> " + newVersion);
-        }
+        db.execSQL("DROP TABLE IF EXISTS movie_views");
+        db.execSQL("DROP TABLE IF EXISTS login_events");
+        db.execSQL("DROP TABLE IF EXISTS booked_seats");
+        db.execSQL("DROP TABLE IF EXISTS payments");
+        db.execSQL("DROP TABLE IF EXISTS bookings");
+        db.execSQL("DROP TABLE IF EXISTS showtimes");
+        db.execSQL("DROP TABLE IF EXISTS movies");
+        db.execSQL("DROP TABLE IF EXISTS users");
+        onCreate(db);
     }
 
     private void createAnalyticsTables(SQLiteDatabase db) {
@@ -77,8 +78,11 @@ final class DatabaseHelper extends SQLiteOpenHelper {
                 "phone", "0901234567", "password", "123456", "role", "USER", "id", 1));
         seedAdmin(db);
 
-        int[] posters = {R.drawable.poster_1, R.drawable.poster_2, R.drawable.poster_3,
-                R.drawable.poster_4, R.drawable.poster_5, R.drawable.poster_6};
+        String[] posters = {
+                String.valueOf(R.drawable.poster_1), String.valueOf(R.drawable.poster_2),
+                String.valueOf(R.drawable.poster_3), String.valueOf(R.drawable.poster_4),
+                String.valueOf(R.drawable.poster_5), String.valueOf(R.drawable.poster_6)
+        };
         String[][] movies = {
                 {context.getString(R.string.movie_1_title), context.getString(R.string.movie_1_genre), "166",
                         context.getString(R.string.movie_1_director), context.getString(R.string.movie_1_description)},

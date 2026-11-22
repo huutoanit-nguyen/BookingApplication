@@ -18,7 +18,7 @@ public class TicketDetailActivity extends BaseActivity {
         Movie movie = repository.getMovieById(showtime.getMovieId());
         setContentView(R.layout.activity_ticket_detail);
         backButton();
-        ((ImageView) findViewById(R.id.poster)).setImageResource(movie.getPoster());
+        loadPoster(findViewById(R.id.poster), movie.getPoster());
         text(R.id.code, getString(R.string.booking_code_format, getString(R.string.ticket_code, booking.getId())));
         text(R.id.title, booking.getMovieTitle());
         text(R.id.genre, movie.getGenre() + " · " + getString(R.string.duration_format, movie.getDuration()));

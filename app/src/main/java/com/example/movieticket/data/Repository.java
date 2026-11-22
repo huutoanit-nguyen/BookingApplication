@@ -179,7 +179,7 @@ public final class Repository {
                 && movie.getGenre() != null && !movie.getGenre().trim().isEmpty()
                 && movie.getDirector() != null && !movie.getDirector().trim().isEmpty()
                 && movie.getDescription() != null && !movie.getDescription().trim().isEmpty()
-                && movie.getDuration() > 0 && movie.getPoster() > 0;
+                && movie.getDuration() > 0 && movie.getPoster() != null && !movie.getPoster().trim().isEmpty();
     }
 
     private ContentValues movieValues(Movie movie) {
@@ -189,7 +189,7 @@ public final class Repository {
         values.put("duration", movie.getDuration());
         values.put("director", movie.getDirector().trim());
         values.put("description", movie.getDescription().trim());
-        values.put("poster", movie.getPoster());
+        values.put("poster", movie.getPoster().trim());
         return values;
     }
 
@@ -352,7 +352,7 @@ public final class Repository {
 
     private static Movie movieFrom(Cursor cursor) {
         return new Movie(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
-                cursor.getInt(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+                cursor.getInt(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
     }
 
     private static Showtime showtimeFrom(Cursor cursor) {

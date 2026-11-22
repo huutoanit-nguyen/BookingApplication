@@ -150,6 +150,8 @@
     <string name="admin_analytics_format">Khách: %1$d · Từng đăng nhập: %2$d tài khoản\nLượt đăng nhập: %3$d · Lượt xem chi tiết: %4$d\nNgười xem duy nhất: %5$d · Vé đã bán: %6$d\nDoanh thu demo: %7$s</string>
     <string name="movie_views_format">%1$d lượt xem chi tiết</string>
     <string name="analytics_local_note">Thống kê chỉ trên thiết bị này. Lượt xem được ghi nhận khi mở chi tiết phim; tài khoản đăng nhập là khách từng đăng nhập thành công; doanh thu chỉ gồm thanh toán demo thành công.</string>
+    <string name="select_poster_image">Chọn ảnh poster từ thiết bị</string>
+    <string name="poster_required">Vui lòng chọn ảnh poster cho phim.</string>
     <string-array name="movie_posters">
         <item>Poster mẫu 1</item>
         <item>Poster mẫu 2</item>
